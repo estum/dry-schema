@@ -31,12 +31,12 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"]   = "https://github.com/dry-rb/dry-schema"
   spec.metadata["bug_tracker_uri"]   = "https://github.com/dry-rb/dry-schema/issues"
 
-  spec.required_ruby_version = ">= 2.7.0"
+  spec.required_ruby_version = ">= 2.6.5"
 
   # to update dependencies edit project.yml
   spec.add_runtime_dependency "concurrent-ruby", "~> 1.0"
   spec.add_runtime_dependency "dry-configurable", "~> 0.13", ">= 0.13.0"
-  spec.add_runtime_dependency "dry-core", "~> 0.5", ">= 0.5"
+  spec.add_runtime_dependency "dry-core", "~> 0.7", ">= 0.7"
   spec.add_runtime_dependency "dry-initializer", "~> 3.0"
   spec.add_runtime_dependency "dry-logic", "~> 1.0"
   spec.add_runtime_dependency "dry-types", "~> 1.5"
