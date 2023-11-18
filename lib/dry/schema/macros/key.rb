@@ -26,8 +26,8 @@ module Dry
         # @return [Macros::Key]
         #
         # @api public
-        def filter(...)
-          (filter_schema_dsl[name] || filter_schema_dsl.optional(name)).value(...)
+        def filter(*args, **opts, &block)
+          (filter_schema_dsl[name] || filter_schema_dsl.optional(name)).value(*args, **opts, &block)
           self
         end
         ruby2_keywords(:filter) if respond_to?(:ruby2_keywords, true)

@@ -6,13 +6,13 @@ eval_gemfile "Gemfile.devtools"
 
 gemspec
 
-gem "dry-configurable", github: "dry-rb/dry-configurable", branch: "master" if ENV["DRY_CONFIGURABLE_FROM_MASTER"].eql?("true") # rubocop:disable Layout/LineLength
-gem "dry-logic", github: "dry-rb/dry-logic", branch: "master" if ENV["DRY_LOGIC_FROM_MASTER"].eql?("true") # rubocop:disable Layout/LineLength
-gem "dry-types", github: "dry-rb/dry-types", branch: "master"
+gem "dry-configurable"
+gem "dry-logic"
+gem "dry-types"
 
 group :test do
-  gem "dry-monads", require: false, github: "dry-rb/dry-monads"
-  gem "dry-struct", require: false, github: "dry-rb/dry-struct"
+  gem "dry-monads"
+  gem "dry-struct"
   gem "i18n", "1.8.2", require: false
   gem "transproc"
   gem "json-schema"

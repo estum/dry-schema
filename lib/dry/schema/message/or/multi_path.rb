@@ -17,13 +17,13 @@ module Dry
           attr_reader :root
 
           # @api private
-          def initialize(...)
+          def initialize(*args, &block)
             super
             flat_left = left.flatten
             flat_right = right.flatten
             @root = [*flat_left, *flat_right].map(&:_path).reduce(:&)
-            @left = flat_left.map { _1.to_or(root) }
-            @right = flat_right.map { _1.to_or(root) }
+            @left = flat_left.map { |item| item.to_or(root) }
+            @right = flat_right.map { |item| item.to_or(root) }
           end
 
           # @api public

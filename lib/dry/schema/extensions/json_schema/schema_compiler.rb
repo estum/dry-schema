@@ -81,13 +81,13 @@ module Dry
         end
 
         # @api private
-        def visit(node, opts = EMPTY_HASH)
+        def visit(node, **opts)
           meth, rest = node
           public_send(:"visit_#{meth}", rest, opts)
         end
 
         # @api private
-        def visit_set(node, opts = EMPTY_HASH)
+        def visit_set(node, **opts)
           target = (key = opts[:key]) ? self.class.new : self
 
           node.map { |child| target.visit(child, opts) }
@@ -101,7 +101,7 @@ module Dry
         end
 
         # @api private
-        def visit_and(node, opts = EMPTY_HASH)
+        def visit_and(node, **opts)
           left, right = node
 
           # We need to know the type first to apply filled macro
@@ -115,19 +115,19 @@ module Dry
         end
 
         # @api private
-        def visit_implication(node, opts = EMPTY_HASH)
+        def visit_implication(node, **opts)
           node.each do |el|
             visit(el, **opts, required: false)
           end
         end
 
         # @api private
-        def visit_each(node, opts = EMPTY_HASH)
+        def visit_each(node, **opts)
           visit(node, opts.merge(member: true))
         end
 
         # @api private
-        def visit_key(node, opts = EMPTY_HASH)
+        def visit_key(node, **opts)
           name, rest = node
 
           if opts.fetch(:required, :true)
@@ -140,14 +140,14 @@ module Dry
         end
 
         # @api private
-        def visit_not(node, opts = EMPTY_HASH)
+        def visit_not(node, **opts)
           _name, rest = node
 
           visit_predicate(rest, opts)
         end
 
         # @api private
-        def visit_predicate(node, opts = EMPTY_HASH)
+        def visit_predicate(node, **opts)
           name, rest = node
 
           if name.equal?(:key?)

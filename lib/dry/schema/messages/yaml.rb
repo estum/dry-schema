@@ -61,7 +61,7 @@ module Dry
             elsif value.is_a?(Hash) && value["text"].is_a?(String)
               keys[[*path, key].join(DOT)] = {
                 text: value["text"],
-                meta: value.reject { _1.eql?("text") }.transform_keys(&:to_sym)
+                meta: value.reject { |item| item.eql?("text") }.transform_keys(&:to_sym)
               }
             end
           end
@@ -196,7 +196,7 @@ module Dry
 
           return data unless custom_top_namespace?(path)
 
-          data.transform_keys { _1.gsub(DEFAULT_MESSAGES_ROOT, config.top_namespace) }
+          data.transform_keys { |item| item.gsub(DEFAULT_MESSAGES_ROOT, config.top_namespace) }
         end
 
         # @api private

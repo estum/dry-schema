@@ -41,11 +41,11 @@ module Dry
         if path[INDEX_REGEX]
           key = path.gsub(INDEX_REGEX, BRACKETS)
 
-          if key_paths.none? { paths_match?(key, _1) }
-            arr = path.gsub(INDEX_REGEX) { ".#{_1[1]}" }
-            arr.split(DOT).map { DIGIT_REGEX.match?(_1) ? Integer(_1, 10) : _1.to_sym }
+          if key_paths.none? { |path| paths_match?(key, path) }
+            arr = path.gsub(INDEX_REGEX) { |m| ".#{m[1]}" }
+            arr.split(DOT).map { |item| DIGIT_REGEX.match?(item) ? Integer(item, 10) : item.to_sym }
           end
-        elsif key_paths.none? { paths_match?(path, _1) }
+        elsif key_paths.none? { |item| paths_match?(path, item) }
           path
         end
       end
@@ -64,7 +64,7 @@ module Dry
             if value.empty?
               [key.to_s]
             else
-              [key].product(key_paths(hash[key])).map { _1.join(DOT) }
+              [key].product(key_paths(hash[key])).map { |item| item.join(DOT) }
             end
           when ::Array
             hashes_or_arrays = hashes_or_arrays(value)
@@ -73,7 +73,7 @@ module Dry
               [key.to_s]
             else
               hashes_or_arrays.flat_map.with_index { |el, idx|
-                key_paths(el).map { ["#{key}[#{idx}]", *_1].join(DOT) }
+                key_paths(el).map { |item| ["#{key}[#{idx}]", *item].join(DOT) }
               }
             end
           else

@@ -58,9 +58,9 @@ module Dry
         # @return [Macros::Core]
         #
         # @api public
-        def value(...)
+        def value(*args, **opts, &block)
           append_macro(Macros::Value) do |macro|
-            macro.call(...)
+            macro.call(*args, **opts, &block)
           end
         end
         ruby2_keywords :value if respond_to?(:ruby2_keywords, true)
@@ -76,9 +76,9 @@ module Dry
         # @return [Macros::Core]
         #
         # @api public
-        def filled(...)
+        def filled(*args, **opts, &block)
           append_macro(Macros::Filled) do |macro|
-            macro.call(...)
+            macro.call(*args, **opts, &block)
           end
         end
         ruby2_keywords :filled if respond_to?(:ruby2_keywords, true)
@@ -97,9 +97,9 @@ module Dry
         # @return [Macros::Core]
         #
         # @api public
-        def schema(...)
+        def schema(*args, &block)
           append_macro(Macros::Schema) do |macro|
-            macro.call(...)
+            macro.call(*args, &block)
           end
         end
         ruby2_keywords :schema if respond_to?(:ruby2_keywords, true)
@@ -112,9 +112,9 @@ module Dry
         #   end
         #
         # @api public
-        def hash(...)
+        def hash(*args, &block)
           append_macro(Macros::Hash) do |macro|
-            macro.call(...)
+            macro.call(*args, &block)
           end
         end
         ruby2_keywords :hash if respond_to?(:ruby2_keywords, true)
@@ -136,9 +136,9 @@ module Dry
         # @return [Macros::Core]
         #
         # @api public
-        def each(...)
+        def each(*args, **opts, &block)
           append_macro(Macros::Each) do |macro|
-            macro.value(...)
+            macro.value(*args, **opts, &block)
           end
         end
         ruby2_keywords :each if respond_to?(:ruby2_keywords, true)
@@ -156,9 +156,9 @@ module Dry
         # @return [Macros::Core]
         #
         # @api public
-        def array(...)
+        def array(*args, **opts, &block)
           append_macro(Macros::Array) do |macro|
-            macro.value(...)
+            macro.value(*args, **opts, &block)
           end
         end
         ruby2_keywords :array if respond_to?(:ruby2_keywords, true)
@@ -244,9 +244,7 @@ module Dry
 
         # @api private
         def schema_or_predicate?(arg)
-          arg.is_a?(Dry::Schema::Processor) ||
-            (arg.is_a?(Symbol) &&
-              arg.to_s.end_with?(QUESTION_MARK))
+          arg.is_a?(Dry::Schema::Processor) || (arg.is_a?(Symbol) && arg.to_s.end_with?(QUESTION_MARK))
         end
       end
     end
